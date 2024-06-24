@@ -82,12 +82,12 @@ const Quiz = ({ onQuizSubmit }) => {
             <>
               <Question
                 question="What city are you in?"
-                options={['SAN FRANCISCO', 'LOS ANGELES']}
+                useTextInput={true}
                 onSelect={(answer) => handleAnswerSelection('city', answer)}
               />
               <Question
                 question="What is your timeframe?"
-                options={['ALL DAY', 'MORNING', 'AFTERNOON', 'EVENING']}
+                useTextInput={true}
                 onSelect={(answer) => handleAnswerSelection('timeframe', answer)}
               />
               <Question
@@ -109,11 +109,13 @@ const Quiz = ({ onQuizSubmit }) => {
               />
               <Question
                 question="What's your budget for the day?"
+                useTextInput={true}
                 options={['BUDGET-FRIENDLY', 'MODERATE', 'LUXURY']}
                 onSelect={(answer) => handleAnswerSelection('budget', answer)}
               />
               <Question
                 question="Who are you planning to go with?"
+                useTextInput={true}
                 options={[
                   'ALONE',
                   'WITH A PARTNER',
@@ -161,6 +163,7 @@ const Quiz = ({ onQuizSubmit }) => {
               />
               <Question
                 question="Do you have any special requirements?"
+                useTextInput={true}
                 options={[
                   'ACCESSIBILITY NEEDS',
                   'DIETARY RESTRICTIONS',
