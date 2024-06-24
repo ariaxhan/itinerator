@@ -20,6 +20,35 @@ body {
   color: #20434d;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+}
+
+.title {
+  font-family: "Rubik", sans-serif;
+  flex-grow: 1;
+  flex-basis: auto;
+  margin: auto 0;
+  font: 42px/126% "Rubik", sans-serif;
+  color: #70999a;
+  font-weight: 200; /* Set to normal weight */
+}
+
+.title a {
+  text-decoration: none; /* Removes underline */
+  color: inherit; /* Inherits the color from .title */
+  font-weight: 700; /* Makes the link text bold */
+}
+
 .results-header {
   margin-bottom: 20px;
 }
@@ -76,4 +105,45 @@ body {
   text-align: center;
   font-size: 1.5em;
   color: #007bff;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 300px; /* Ensure it's visible */
+}
+
+.spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #007bff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.link {
+  font-family: "Rubik", sans-serif;
+  flex-grow: 1;
+  flex-basis: auto;
+  margin: auto 0;
+  font-weight: 400; /* Set to normal weight */
+}
+
+.logo {
+  aspect-ratio: 1;
+  object-fit: auto;
+  object-position: center;
+  width: 57px;
 }

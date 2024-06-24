@@ -18,7 +18,7 @@ const firebaseConfig = {
 const Results = () => {
   const { quizId } = useParams();
   const [response, setResponse] = useState(null);
-  const [status, setStatus] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const app = initializeApp(firebaseConfig);
@@ -29,13 +29,11 @@ const Results = () => {
       const unsubscribe = onSnapshot(docRef, (docSnap) => {
         if (docSnap.exists()) {
           const data = docSnap.data();
-          setStatus(data.status ? JSON.stringify(data.status, null, 2) : null);
-          if (data.itinerary) {
-            setResponse(data.itinerary);
-          }
+          setResponse(data.itinerary);
         } else {
           console.log("No such document!");
         }
+        setLoading(false);
       });
 
       return () => {
@@ -45,18 +43,36 @@ const Results = () => {
   }, [quizId]);
 
   return (
-    <div className="results-container">
-      <div className="results-header">
-        <h1>Generated Itinerary</h1>
-      </div>
-      {status && <div className="status">Status: <pre>{status}</pre></div>}
-      {response ? (
-        <div className="itinerary">
-          <ReactMarkdown>{response}</ReactMarkdown>
+    <div className="container">
+      <div className="content-wrapper">
+        <div className="content">
+          <header className="header">
+            <img
+              loading="lazy"
+              srcSet="https://cdn.builder.io/api/v1/image/assets/TEMP/18c1060fdb7de4a2128a3e5d304fea376e03e36e1f38556ee5a3fa91aae67d3d?apiKey=95bdd6893dbc47d0ac51c502bd26afe2&width=2000 2000w"
+              className="logo"
+              alt="Logo"
+            />
+            <div className="title">
+              Itinerator
+            </div>
+          </header>
+          <div className="results-header">
+            <h1>Generated Itinerary</h1>
+          </div>
+          {loading ? (
+            <div className="loading-spinner">
+              <div className="spinner"></div>
+            </div>
+          ) : response ? (
+            <div className="itinerary">
+              <ReactMarkdown>{response}</ReactMarkdown>
+            </div>
+          ) : (
+            <div>No itinerary found.</div>
+          )}
         </div>
-      ) : (
-        <div>Loading...</div>
-      )}
+      </div>
     </div>
   );
 };
