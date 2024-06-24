@@ -17,14 +17,12 @@ const firebaseConfig = {
 
 const Results = () => {
   const { quizId } = useParams();
-  const [setDb] = useState(null);
   const [response, setResponse] = useState(null);
-  const [ setStatus] = useState(null);
+  const [status, setStatus] = useState(null);
 
   useEffect(() => {
     const app = initializeApp(firebaseConfig);
     const firestore = getFirestore(app);
-    setDb(firestore);
 
     if (quizId) {
       const docRef = doc(firestore, 'quizResponses', quizId);
@@ -51,7 +49,7 @@ const Results = () => {
       <div className="results-header">
         <h1>Generated Itinerary</h1>
       </div>
-      {/* {status && <div className="status">Status: <pre>{status}</pre></div>} */}
+      {status && <div className="status">Status: <pre>{status}</pre></div>}
       {response ? (
         <div className="itinerary">
           <ReactMarkdown>{response}</ReactMarkdown>
