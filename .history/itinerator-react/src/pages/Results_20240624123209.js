@@ -54,11 +54,7 @@ const Results = () => {
               className="logo"
               alt="Logo"
             />
-						
-					  <Link to="/" className="title-link">
-						  Itinerator
-        
-      </Link>
+						<div className="title">Itinerator</div>
 						</div>
 						
     <div className="results-container">

@@ -3,7 +3,6 @@ import { addDoc, collection, getFirestore } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Question from '../components/Question';
-import { Link } from 'react-router-dom';
 
 const firebaseConfig = {
   apiKey: "AIzaSyB9cb7zySwiYnXgqWnQKgb8L84Q4Y-eYZY",

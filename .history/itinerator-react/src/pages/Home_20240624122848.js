@@ -15,7 +15,7 @@ function Home() {
               className="logo"
               alt="Logo"
             />
-					  <Link to="/" className="title-link">
+					  <Link to="/" className="title">
 						  Itinerator
         
       </Link>

@@ -75,21 +75,16 @@
   display: flex;
   align-items: center;
   text-decoration: none; /* Remove the underline */
-  flex-grow: 1;
+    flex-grow: 1;
   margin: auto 0;
   font-family: Rubik, sans-serif;
-  color: #5c7b81; /* Inherit the color from the parent */
 }
-
-.title-link:visited {
-  color: #5c7b81; /* Ensure the color remains the same after the link is visited */
-}
-
 /* Title Styles */
 .title {
   flex-grow: 1;
   margin: auto 0;
   font-family: Rubik, sans-serif;
+
 }
 
 /* Subtitle Styles */

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import '../css/styles.css';
+import '../css/styles.css'; // Assuming you have a separate CSS file for styles
 
 function Home() {
   return (
@@ -15,9 +14,12 @@ function Home() {
               className="logo"
               alt="Logo"
             />
-					  <Link to="/" className="title-link">
-						  Itinerator
-        
+             <Link to="/" className="title-link">
+        <img
+          src="/path-to-your-image/itinerator.png" // Update this path
+          alt="Itinerator Logo"
+          className="title"
+        />
       </Link>
           </div>
           <div className="subtitle">What should I do today?</div>

@@ -15,9 +15,12 @@ function Home() {
               className="logo"
               alt="Logo"
             />
-					  <Link to="/" className="title-link">
-						  Itinerator
-        
+             <Link to="/" className="title-link">
+        <img
+          src="../../public/images/itinerator.png" 
+          alt="Itinerator"
+          className="title"
+        />
       </Link>
           </div>
           <div className="subtitle">What should I do today?</div>

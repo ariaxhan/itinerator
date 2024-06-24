@@ -2,9 +2,8 @@ import { initializeApp } from 'firebase/app';
 import { doc, getFirestore, onSnapshot } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import '../css/results.css';
-import { Link } from 'react-router-dom';
 
 const firebaseConfig = {
   apiKey: "AIzaSyB9cb7zySwiYnXgqWnQKgb8L84Q4Y-eYZY",
@@ -59,7 +58,6 @@ const Results = () => {
 						  Itinerator
         
       </Link>
-						</div>
 						
     <div className="results-container">
       <div className="results-header">
