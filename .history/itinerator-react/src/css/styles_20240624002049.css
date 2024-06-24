@@ -107,13 +107,11 @@
   font-family: Raleway, sans-serif;
   border-radius: 5px;
   background-color: #b8d1d2;
-  padding: 20px 40px; /* Adjust padding to add space around each button */
+  padding: 20px 40px;
   text-decoration: none;
   color: #20434d;
-  display: inline-block;
+  display: inline-block; /* Change to inline-block */
   transition: background-color 0.3s ease;
-  margin: 10px; /* Add margin to create space around each button */
-  cursor: pointer; /* Add cursor: pointer to change cursor on hover */
 }
 
 @media (max-width: 991px) {

@@ -1,42 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { db } from '../FirebaseConfig'; // Import the Firestore instance
 
-const Question = ({ question, options, onSelect }) => {
-  const [selectedOptions, setSelectedOptions] = React.useState([]);
-
-  const toggleOption = (option) => {
-    if (selectedOptions.includes(option)) {
-      setSelectedOptions(selectedOptions.filter((item) => item !== option));
-    } else {
-      setSelectedOptions([...selectedOptions, option]);
-    }
-  };
-
-  return (
-    <div className="question">
-      <div className="question-text">{question}</div>
-      <div className="options">
-        {options.map((option, index) => (
-          <div
-            key={index}
-            className={`button ${selectedOptions.includes(option) ? 'selected' : ''}`}
-            onClick={() => toggleOption(option)}
-          >
-            {option}
-          </div>
-        ))}
-      </div>
-      <div className="selected-options">
-        Selected: {selectedOptions.join(', ')}
-      </div>
+// Reusable component for a question with options
+const Question = ({ question, options, onSelect }) => (
+  <div className="question">
+    {question}
+    <div className="options">
+      {options.map((option, index) => (
+        <div
+          key={index}
+          className={`button ${option === onSelect ? 'selected' : ''}`}
+          onClick={() => onSelect(option)}
+        >
+          {option}
+        </div>
+      ))}
     </div>
-  );
-};
+  </div>
+);
 
 const Quiz = () => {
-  const [answers, setAnswers] = React.useState({
+  const [answers, setAnswers] = useState({
     city: '',
-    timeframe: [],
+    timeframe: '',
     activities: [],
     budget: '',
     companions: '',

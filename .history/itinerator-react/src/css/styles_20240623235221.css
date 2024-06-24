@@ -89,6 +89,7 @@
 }
 
 .buttons {
+  display: flex;
   margin-top: 45px;
   gap: 20px;
   font-size: 16px;
@@ -107,22 +108,16 @@
   font-family: Raleway, sans-serif;
   border-radius: 5px;
   background-color: #b8d1d2;
-  padding: 20px 40px; /* Adjust padding to add space around each button */
+  justify-content: center;
+  padding: 20px 40px;
   text-decoration: none;
   color: #20434d;
-  display: inline-block;
-  transition: background-color 0.3s ease;
-  margin: 10px; /* Add margin to create space around each button */
-  cursor: pointer; /* Add cursor: pointer to change cursor on hover */
+  display: flex;
+  align-items: center;
 }
 
 @media (max-width: 991px) {
   .button {
     padding: 10px 20px;
   }
-}
-
-.button.selected {
-  background-color: #70999a; /* Darker color when selected */
-  color: white;
 }
