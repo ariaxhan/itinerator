@@ -13,7 +13,7 @@ const RouterComponent = () => {
         <Route path="/" element={<Home />} />
         <Route path="/quiz" element={<Quiz />} />
 			  <Route path="/results/:quizId" element={<Results />} />
-			<Route path="/surprise" element={<Surprise />} />
+			<Route 
       </Routes>
     </Router>
   );

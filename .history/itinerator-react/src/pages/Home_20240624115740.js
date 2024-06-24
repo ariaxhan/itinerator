@@ -20,7 +20,7 @@ function Home() {
           <div className="description">Ai-powered itinerary generator.</div>
           <div className="buttons">
 					  <a href="/quiz" className="button">TAKE THE QUIZ</a>
-					  <a href="/surprise" className="button">SURPRISE ME</a>
+					  <a href="/quiz" className="button">TAKE THE QUIZ</a>
           </div>
         </div>
       </div>

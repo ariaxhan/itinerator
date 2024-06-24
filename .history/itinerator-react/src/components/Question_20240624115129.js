@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../css/quiz.css';
+import 
 
 const Question = ({ question, options, onSelect, useTextInput = false }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);

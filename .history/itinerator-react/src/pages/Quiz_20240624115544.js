@@ -29,26 +29,7 @@ function preprocessInput(data) {
   };
 }
 
-let isSubmitting = false; // Global variable to ensure submitQuiz is only called once
-
-export async function submitQuiz(db, answers, navigate) {
-  if (isSubmitting) return; // Check if submitQuiz has already been called
-  isSubmitting = true; // Set the flag to true to prevent further submissions
-
-  try {
-    const processedAnswers = preprocessInput(answers);
-    const quizResponsesRef = collection(db, 'quizResponses');
-    const docRef = await addDoc(quizResponsesRef, processedAnswers);
-    console.log('Quiz submitted successfully!', docRef.id);
-    navigate(`/results/${docRef.id}`);
-  } catch (error) {
-    console.error('Error submitting quiz:', error);
-  } finally {
-    isSubmitting = true; // Reset the flag after submission
-  }
-}
-
-const Quiz = () => {
+const Quiz = ({ onQuizSubmit }) => {
   const [answers, setAnswers] = useState({
     city: '',
     timeframe: '',
@@ -62,7 +43,6 @@ const Quiz = () => {
     visitedBefore: ''
   });
   const [db, setDb] = useState(null);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -82,11 +62,32 @@ const Quiz = () => {
     }));
   };
 
-  const handleSubmit = async () => {
-    if (isSubmitted) return; // Check if the submission has already happened
-    setIsSubmitted(true); // Set the submission state to true
+  const submitQuiz = async () => {
+    try {
+      if (!db) {
+        console.error('Firestore is not initialized yet');
+        return;
+      }
+// Preprocess the data
+const processedData = preprocessInput(data);
 
-    await submitQuiz(db, answers, navigate);
+// Construct the prompt using the processed data
+const prompt = `If any of the values are missing, generate them randomly. Generate a custom itinerary for a trip to ${processedData.city}. The user is interested in ${processedData.activities} and prefers to spend their time in the ${processedData.timeframe}. Consider the following details: 
+- Budget: ${processedData.budget} 
+- Companions: ${processedData.companions} 
+- Interests: ${processedData.interests} 
+- Requirements: ${processedData.requirements} 
+- Preferred transportation: ${processedData.transportation} 
+- Has visited before: ${processedData.visitedBefore} 
+- Desired weather conditions: ${processedData.weather} 
+
+      const quizResponsesRef = collection(db, 'quizResponses');
+      const docRef = await addDoc(quizResponsesRef, answers);
+      console.log('Quiz submitted successfully!', docRef.id);
+      navigate(`/results/${docRef.id}`);
+    } catch (error) {
+      console.error('Error submitting quiz:', error);
+    }
   };
 
   return (
@@ -203,10 +204,17 @@ const Quiz = () => {
                   ])
                 }
               />
+              <Question
+                question="Have you been to this city before?"
+                options={['YES', 'NO']}
+                onSelect={(answer) =>
+                  handleAnswerSelection('visitedBefore', answer)
+                }
+              />
             </>
           )}
 
-          <div className="submit-button" onClick={handleSubmit}>
+          <div className="submit-button" onClick={submitQuiz}>
             SUBMIT
           </div>
         </div>

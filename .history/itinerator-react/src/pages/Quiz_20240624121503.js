@@ -44,7 +44,7 @@ export async function submitQuiz(db, answers, navigate) {
   } catch (error) {
     console.error('Error submitting quiz:', error);
   } finally {
-    isSubmitting = true; // Reset the flag after submission
+    isSubmitting = false; // Reset the flag after submission
   }
 }
 

@@ -31,10 +31,8 @@ function preprocessInput(data) {
 
 let isSubmitting = false; // Global variable to ensure submitQuiz is only called once
 
-export async function submitQuiz(db, answers, navigate) {
-  if (isSubmitting) return; // Check if submitQuiz has already been called
-  isSubmitting = true; // Set the flag to true to prevent further submissions
 
+export async function submitQuiz(db, answers, navigate) {
   try {
     const processedAnswers = preprocessInput(answers);
     const quizResponsesRef = collection(db, 'quizResponses');
@@ -43,12 +41,10 @@ export async function submitQuiz(db, answers, navigate) {
     navigate(`/results/${docRef.id}`);
   } catch (error) {
     console.error('Error submitting quiz:', error);
-  } finally {
-    isSubmitting = true; // Reset the flag after submission
   }
 }
 
-const Quiz = () => {
+const Quiz = ({ onQuizSubmit }) => {
   const [answers, setAnswers] = useState({
     city: '',
     timeframe: '',
@@ -61,7 +57,7 @@ const Quiz = () => {
     requirements: '',
     visitedBefore: ''
   });
-  const [db, setDb] = useState(null);
+	const [db, setDb] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const navigate = useNavigate();
 
@@ -82,7 +78,8 @@ const Quiz = () => {
     }));
   };
 
-  const handleSubmit = async () => {
+  
+ const handleSubmit = async () => {
     if (isSubmitted) return; // Check if the submission has already happened
     setIsSubmitted(true); // Set the submission state to true
 
