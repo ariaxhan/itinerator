@@ -5,9 +5,8 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 100vh; /* Ensure it fills the full viewport height */
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 0 20px; /* Add some padding to the sides */
   background-color: #fff;
   color: #20434d;
   font-weight: 700;
@@ -21,7 +20,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 80px 20px; /* Adjusted padding */
+  padding: 80px 20px; /* Reduced padding to avoid overflow */
   box-sizing: border-box; /* Ensure padding is included in width */
   background-color: #fff;
 }
@@ -38,9 +37,8 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 100%; /* Allow content to stretch */
+  max-width: 492px;
   margin: 29px 0;
-  box-sizing: border-box; /* Ensure padding is included in width */
 }
 
 @media (max-width: 991px) {
@@ -81,7 +79,7 @@
 /* Subtitle Styles */
 .subtitle {
   align-self: stretch;
-  margin-top: 40px; /* Adjusted margin */
+  margin-top: 40px; /* Reduced margin to avoid vertical overflow */
   font: 42px/126% Rubik, sans-serif;
   font-variant-numeric: lining-nums proportional-nums;
 }
@@ -105,7 +103,7 @@
 /* Buttons Styles */
 .buttons {
   display: flex;
-  justify-content: center; /* Center buttons horizontally */
+  justify-content: space-between;
   gap: 20px;
   margin-top: 45px;
   font-size: 16px;

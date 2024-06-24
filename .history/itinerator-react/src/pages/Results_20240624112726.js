@@ -45,7 +45,7 @@ const Results = () => {
 	return (
 	  <div className="container">
       <div className="content-wrapper">
-        <div className="content">
+        < className="content">
           <div className="header">
             <img
               loading="lazy"
@@ -59,16 +59,15 @@ const Results = () => {
     <div className="results-container">
       <div className="results-header">
         <h1>Generated Itinerary</h1>
-						</div>
-					
+      </div>
       {response ? (
         <div className="itinerary">
           <ReactMarkdown>{response}</ReactMarkdown>
         </div>
       ) : (
-        <div>Loading itinerary...</div>
+        <div>Loading...</div>
       )}
-					</div>
+				
 				</div>
 			</div>
 			</div>

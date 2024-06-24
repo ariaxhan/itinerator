@@ -53,25 +53,19 @@ const Results = () => {
               className="logo"
               alt="Logo"
             />
-						<div className="title">Itinerator</div>
-						</div>
-						
+            <div className="title">Itinerator</div>
     <div className="results-container">
       <div className="results-header">
         <h1>Generated Itinerary</h1>
-						</div>
-					
+      </div>
       {response ? (
         <div className="itinerary">
           <ReactMarkdown>{response}</ReactMarkdown>
         </div>
       ) : (
-        <div>Loading itinerary...</div>
+        <div>Loading...</div>
       )}
-					</div>
-				</div>
-			</div>
-			</div>
+    </div>
   );
 };
 

@@ -66,9 +66,9 @@ const Results = () => {
           <ReactMarkdown>{response}</ReactMarkdown>
         </div>
       ) : (
-        <div>Loading itinerary...</div>
+        <div>Loading...</div>
       )}
-					</div>
+				
 				</div>
 			</div>
 			</div>
