@@ -2,7 +2,11 @@
 ## AI-Powered Itinerary Generator
 
 Experience seamless travel planning with our AI-powered itinerary generator, built using React, Firebase, and Cloudflare Pages. Effortlessly create personalized travel itineraries tailored to your preferences and enjoy a smarter way to plan your next adventure.
-<img width="736" alt="Screenshot 2024-06-24 at 12 45 17 PM" src="https://github.com/ariaxhan/itinerator/assets/113392746/e1941f89-c071-4164-8d49-732369433e1d">
+
+<div align="center">
+<img width="736" alt="Screenshot 2024-06-24 at 12 45 17 PM" src="https://github.com/ariaxhan/itinerator/assets/113392746/ffe3d601-91a9-4bd2-bc73-646234b47c08">
+
+</div>
 
 ## Table of Contents
 
@@ -22,10 +26,23 @@ Experience seamless travel planning with our AI-powered itinerary generator, bui
 
 1. **Home Page**: Start by entering your travel preferences through a quiz.
 
- <img width="736" alt="Screenshot 2024-06-24 at 12 45 22 PM" src="https://github.com/ariaxhan/itinerator/assets/113392746/88bf7c35-574f-475a-829f-e3064dfa6935">
+<div align="center">
+<img width="736" alt="Screenshot 2024-06-24 at 12 46 35 PM" src="https://github.com/ariaxhan/itinerator/assets/113392746/cb6c02e9-f80d-48f8-a414-92aa76864517">
+</div>
 
 2. **Surprise Me**: Alternatively, press the "Surprise Me" button for random values.
+
+<div align="center">
+<img width="736" alt="Screenshot 2024-06-24 at 12 46 35 PM" src="https://github.com/ariaxhan/itinerator/assets/113392746/2f133848-fd9b-4e79-9e95-34f67cc56767">
+
+</div>
+
 3. **AI-Powered Suggestions**: Receive a personalized travel itinerary based on your inputs.
+
+<div align="center">
+<img width="736" alt="Screenshot 2024-06-24 at 12 47 26 PM" src="https://github.com/ariaxhan/itinerator/assets/113392746/447539d8-5198-4fd5-9ff5-814785f82c53">
+
+</div>
 
 Please note that the options to save or share your itinerary are not yet available.
 
