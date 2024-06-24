@@ -5,6 +5,7 @@ import jsPDF from 'jspdf';
 import React, { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link, useParams } from 'react-router-dom';
+import Map from '../components/Map'; // Import the Map component
 import '../css/results.css';
 
 const firebaseConfig = {
@@ -138,6 +139,7 @@ const Results = () => {
                   <button className="button" onClick={saveAsPDF}>Save as PDF</button>
                   <button className="button" onClick={() => navigator.clipboard.writeText(getShareableLink())}>Copy Shareable Link</button>
                 </div>
+                <Map locations={locations} /> {/* Use the Map component */}
               </div>
             ) : (
               <div className="loading-spinner">

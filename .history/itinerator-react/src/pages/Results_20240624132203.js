@@ -5,6 +5,7 @@ import jsPDF from 'jspdf';
 import React, { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link, useParams } from 'react-router-dom';
+import Map from '../components/Map'; // Import the Map component
 import '../css/results.css';
 
 const firebaseConfig = {
@@ -65,52 +66,18 @@ const Results = () => {
   };
 	
 	const extractLocations = (itinerary) => {
+		console.log("itinerary" + itinerary);
+  const locationRegex = /\*\*([^*]+)\*\*:\s*Longitude:\s*(-?\d+\.\d+),\s*Latitude:\s*(-?\d+\.\d+)/g;
+  let matches;
+  const locations = [];
 
-    // Step 1: Identify the Locations List Section
-  const listSectionRegex = /\*\*Locations List:\*\*\s*([\s\S]*)/g;
-		const listSectionMatch = listSectionRegex.exec(itinerary);
-		console.log("locations list" + listSectionMatch);
-  if (!listSectionMatch) {
-	  console.log("No locations list found.");
-	  
-    return [];
+  while ((matches = locationRegex.exec(itinerary)) !== null) {
+    const name = matches[1].trim();
+    const lng = parseFloat(matches[2]);
+    const lat = parseFloat(matches[3]);
+    locations.push({ name, lat, lng });
   }
 
-  const listSection = listSectionMatch[1];
-
-
-  // Step 2: Extract Each Location
-   const locationTitleRegex = /\*\*\s*([^*]+?)\s*\*\*:/g;
-  const longitudeRegex = /Longitude:\s*(-?\d+\.\d+)/g;
-  const latitudeRegex = /Latitude:\s*(-?\d+\.\d+)/g;
-
-  const titles = [];
-  const longitudes = [];
-  const latitudes = [];
-
-  let match;
-  while ((match = locationTitleRegex.exec(listSection)) !== null) {
-    console.log("Title Match:", match[1].trim());
-    titles.push(match[1].trim());
-  }
-
-  while ((match = longitudeRegex.exec(listSection)) !== null) {
-    console.log("Longitude Match:", match[1]);
-    longitudes.push(parseFloat(match[1]));
-  }
-
-		while ((match = latitudeRegex.exec(listSection)) !== null) {
-			console.log("Latitude Match:", match[1]);
-			latitudes.push(parseFloat(match[1]));
-		}
-
- const locations = titles.map((title, index) => ({
-    name: title,
-    lng: longitudes[index],
-    lat: latitudes[index],
-  }));
-
-  console.log("Extracted Locations:");
   console.log(locations); // Print out the extracted locations
   return locations;
 };
@@ -138,6 +105,7 @@ const Results = () => {
                   <button className="button" onClick={saveAsPDF}>Save as PDF</button>
                   <button className="button" onClick={() => navigator.clipboard.writeText(getShareableLink())}>Copy Shareable Link</button>
                 </div>
+                <Map locations={locations} /> {/* Use the Map component */}
               </div>
             ) : (
               <div className="loading-spinner">
