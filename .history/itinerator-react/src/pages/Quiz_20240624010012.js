@@ -1,7 +1,6 @@
-import { initializeApp } from 'firebase/app';
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import Question from '../components/Question';
 
 const firebaseConfig = {
@@ -14,8 +13,8 @@ const firebaseConfig = {
   measurementId: "G-M9TB6E76QY"
 };
 
-const Quiz = ({ onQuizSubmit }) => {
-  const [answers, setAnswers] = useState({
+const Quiz = () => {
+ const [answers, setAnswers] = useState({
     city: '',
     timeframe: '',
     activities: '',
@@ -27,8 +26,11 @@ const Quiz = ({ onQuizSubmit }) => {
     requirements: '',
     visitedBefore: ''
   });
-  const [db, setDb] = useState(null);
-  const navigate = useNavigate();
+
+  // Firebase initialization
+	const [db, setDb] = useState(null);
+	const navigate = useNavigate();
+
 
   useEffect(() => {
     const app = initializeApp(firebaseConfig);
@@ -43,26 +45,25 @@ const Quiz = ({ onQuizSubmit }) => {
   const handleAnswerSelection = (question, answer) => {
     setAnswers(prevAnswers => ({
       ...prevAnswers,
-      [question]: Array.isArray(answer) ? answer.join(', ') : String(answer)
+      [question]: answer
     }));
   };
 
-  const submitQuiz = async () => {
-    try {
-      if (!db) {
-        console.error('Firestore is not initialized yet');
-        return;
-      }
-
-      const quizResponsesRef = collection(db, 'quizResponses');
-      const docRef = await addDoc(quizResponsesRef, answers);
-      console.log('Quiz submitted successfully!', docRef.id);
-      navigate(`/results/${docRef.id}`);
-    } catch (error) {
-      console.error('Error submitting quiz:', error);
+const submitQuiz = async () => {
+  try {
+    if (!db) {
+      console.error('Firestore is not initialized yet');
+      return;
     }
-  };
 
+    const quizResponsesRef = collection(db, 'quizResponses'); // Access Firestore collection
+    const docRef = await addDoc(quizResponsesRef, answers); // Add quiz answers to Firestore
+
+    console.log('Quiz submitted successfully!', docRef.id);
+  } catch (error) {
+    console.error('Error submitting quiz:', error);
+  }
+};
   return (
     <div className="container">
       <div className="content-wrapper">
@@ -78,6 +79,8 @@ const Quiz = ({ onQuizSubmit }) => {
           </div>
           <div className="subtitle">Quiz</div>
           
+          {/* Questions with options */}
+          {/* Ensure db is initialized before rendering questions */}
           {db && (
             <>
               <Question
@@ -85,11 +88,13 @@ const Quiz = ({ onQuizSubmit }) => {
                 options={['SAN FRANCISCO', 'LOS ANGELES']}
                 onSelect={(answer) => handleAnswerSelection('city', answer)}
               />
+              
               <Question
                 question="What is your timeframe?"
                 options={['ALL DAY', 'MORNING', 'AFTERNOON', 'EVENING']}
                 onSelect={(answer) => handleAnswerSelection('timeframe', answer)}
               />
+              
               <Question
                 question="What type of activities do you prefer?"
                 options={[
@@ -102,16 +107,18 @@ const Quiz = ({ onQuizSubmit }) => {
                 ]}
                 onSelect={(answer) =>
                   handleAnswerSelection('activities', [
-                    ...answers.activities.split(', '),
+                    ...answers.activities,
                     answer
                   ])
                 }
               />
+    
               <Question
                 question="What's your budget for the day?"
                 options={['BUDGET-FRIENDLY', 'MODERATE', 'LUXURY']}
                 onSelect={(answer) => handleAnswerSelection('budget', answer)}
               />
+              
               <Question
                 question="Who are you planning to go with?"
                 options={[
@@ -123,6 +130,7 @@ const Quiz = ({ onQuizSubmit }) => {
                 ]}
                 onSelect={(answer) => handleAnswerSelection('companions', answer)}
               />
+              
               <Question
                 question="What modes of transportation do you have access to?"
                 options={[
@@ -136,6 +144,7 @@ const Quiz = ({ onQuizSubmit }) => {
                   handleAnswerSelection('transportation', answer)
                 }
               />
+              
               <Question
                 question="What are your main interests?"
                 options={[
@@ -148,17 +157,16 @@ const Quiz = ({ onQuizSubmit }) => {
                   'NIGHTLIFE'
                 ]}
                 onSelect={(answer) =>
-                  handleAnswerSelection('interests', [
-                    ...answers.interests.split(', '),
-                    answer
-                  ])
+                  handleAnswerSelection('interests', [...answers.interests, answer])
                 }
               />
+    
               <Question
                 question="What is the current weather like in your city?"
                 options={['SUNNY', 'CLOUDY', 'RAINY', 'SNOWY']}
                 onSelect={(answer) => handleAnswerSelection('weather', answer)}
               />
+              
               <Question
                 question="Do you have any special requirements?"
                 options={[
@@ -168,11 +176,12 @@ const Quiz = ({ onQuizSubmit }) => {
                 ]}
                 onSelect={(answer) =>
                   handleAnswerSelection('requirements', [
-                    ...answers.requirements.split(', '),
+                    ...answers.requirements,
                     answer
                   ])
                 }
               />
+    
               <Question
                 question="Have you been to this city before?"
                 options={['YES', 'NO']}

@@ -1,7 +1,7 @@
-import { initializeApp } from 'firebase/app';
-import { addDoc, collection, getFirestore } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import Question from '../components/Question';
 
 const firebaseConfig = {
