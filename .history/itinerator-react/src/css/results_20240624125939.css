@@ -154,9 +154,9 @@ body {
   padding: 20px 40px;
   margin: 10px;
   font-family: Raleway, sans-serif;
-  color: #20434d;
+  color: #b8d1d2;
   background-color: #b8d1d2;
-  border-radius: none;
+  border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -164,7 +164,7 @@ body {
   display: flex;
   justify-content: center; /* Center buttons horizontally */
   gap: 20px;
-border: none;
+
   font-size: 16px;
   font-weight: 800;
   letter-spacing: 1.4px;

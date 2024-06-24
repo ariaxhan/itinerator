@@ -1,8 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { doc, getFirestore, onSnapshot } from 'firebase/firestore';
-import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link, useParams } from 'react-router-dom';
 import '../css/results.css';
@@ -20,7 +19,6 @@ const firebaseConfig = {
 const Results = () => {
   const { quizId } = useParams();
   const [response, setResponse] = useState(null);
-  const contentRef = useRef(null);
 
   useEffect(() => {
     const app = initializeApp(firebaseConfig);
@@ -46,15 +44,10 @@ const Results = () => {
   }, [quizId]);
 
   const saveAsPDF = () => {
-    html2canvas(contentRef.current).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save('itinerary.pdf');
-    });
+    const doc = new jsPDF();
+    doc.text("Generated Itinerary", 10, 10);
+    doc.text(response, 10, 20);
+    doc.save("itinerary.pdf");
   };
 
   const getShareableLink = () => {
@@ -62,7 +55,7 @@ const Results = () => {
   };
 
   return (
-    <div className="container" ref={contentRef}>
+    <div className="container">
       <div className="content-wrapper">
         <div className="content">
           <div className="header">
@@ -77,14 +70,11 @@ const Results = () => {
           <div className="results-container">
             <div className="results-header">
               <h1>Generated Itinerary</h1>
+            
             </div>
             {response ? (
               <div className="itinerary">
                 <ReactMarkdown>{response}</ReactMarkdown>
-                <div className="actions">
-                  <button className="button" onClick={saveAsPDF}>Save as PDF</button>
-                  <button className="button" onClick={() => navigator.clipboard.writeText(getShareableLink())}>Copy Shareable Link</button>
-                </div>
               </div>
             ) : (
               <div className="loading-spinner">

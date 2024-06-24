@@ -164,7 +164,7 @@ body {
   display: flex;
   justify-content: center; /* Center buttons horizontally */
   gap: 20px;
-border: none;
+
   font-size: 16px;
   font-weight: 800;
   letter-spacing: 1.4px;

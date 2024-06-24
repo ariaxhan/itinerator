@@ -156,16 +156,9 @@ body {
   font-family: Raleway, sans-serif;
   color: #20434d;
   background-color: #b8d1d2;
-  border-radius: none;
+  border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
   box-sizing: border-box; /* Ensure padding is included in width */
-  display: flex;
-  justify-content: center; /* Center buttons horizontally */
-  gap: 20px;
-border: none;
-  font-size: 16px;
-  font-weight: 800;
-  letter-spacing: 1.4px;
 }
