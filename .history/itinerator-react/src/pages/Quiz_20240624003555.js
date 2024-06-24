@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
+import { getAnalytics } from 'firebase/analytics';
+import { getAuth } from 'firebase/auth';
 import Question from '../components/Question';
 
 const firebaseConfig = {

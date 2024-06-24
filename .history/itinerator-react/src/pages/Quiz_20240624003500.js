@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
+import { getAnalytics } from 'firebase/analytics';
+import { getAuth } from 'firebase/auth';
 import Question from '../components/Question';
 
 const firebaseConfig = {
@@ -47,21 +49,20 @@ const Quiz = () => {
     }));
   };
 
-const submitQuiz = async () => {
-  try {
-    if (!db) {
-      console.error('Firestore is not initialized yet');
-      return;
+  const submitQuiz = async () => {
+    try {
+      if (!db) {
+        console.error('Firestore is not initialized yet');
+        return;
+      }
+
+      const docRef = await db.collection('quizResponses').add(answers);
+      console.log('Quiz submitted successfully!', docRef.id);
+    } catch (error) {
+      console.error('Error submitting quiz:', error);
     }
+  };
 
-    const quizResponsesRef = collection(db, 'quizResponses'); // Access Firestore collection
-    const docRef = await addDoc(quizResponsesRef, answers); // Add quiz answers to Firestore
-
-    console.log('Quiz submitted successfully!', docRef.id);
-  } catch (error) {
-    console.error('Error submitting quiz:', error);
-  }
-};
   return (
     <div className="container">
       <div className="content-wrapper">

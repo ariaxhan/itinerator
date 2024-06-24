@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
+import { getAnalytics } from 'firebase/analytics';
+import { getAuth } from 'firebase/auth';
 import Question from '../components/Question';
 
 const firebaseConfig = {
@@ -28,10 +30,11 @@ const Quiz = () => {
   });
 
   // Firebase initialization
- const [db, setDb] = useState(null);
+  const [db, setDb] = React.useState(null);
 
   useEffect(() => {
     const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
     const firestore = getFirestore(app);
     setDb(firestore);
 
@@ -47,21 +50,23 @@ const Quiz = () => {
     }));
   };
 
-const submitQuiz = async () => {
-  try {
-    if (!db) {
-      console.error('Firestore is not initialized yet');
-      return;
+  const submitQuiz = async () => {
+    try {
+      if (!db) {
+        console.error('Firestore is not initialized yet');
+        return;
+      }
+
+      // Add quiz answers to Firestore collection 'quizResponses'
+      const docRef = await db.collection('quizResponses').add(answers);
+      console.log('Quiz submitted successfully!', docRef.id);
+      // Optionally, you can navigate to a new page or show a success message
+    } catch (error) {
+      console.error('Error submitting quiz:', error);
+      // Handle error gracefully, e.g., show an error message
     }
+  };
 
-    const quizResponsesRef = collection(db, 'quizResponses'); // Access Firestore collection
-    const docRef = await addDoc(quizResponsesRef, answers); // Add quiz answers to Firestore
-
-    console.log('Quiz submitted successfully!', docRef.id);
-  } catch (error) {
-    console.error('Error submitting quiz:', error);
-  }
-};
   return (
     <div className="container">
       <div className="content-wrapper">

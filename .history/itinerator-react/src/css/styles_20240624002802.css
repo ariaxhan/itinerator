@@ -103,8 +103,7 @@
   }
 }
 
-.button,
-.submit-button {
+.button, .submi {
   font-family: Raleway, sans-serif;
   border-radius: 5px;
   background-color: #b8d1d2;
