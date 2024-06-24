@@ -108,16 +108,17 @@ const Quiz = ({ onQuizSubmit }) => {
                 }
               />
               <Question
-                question="What's your budget for the day?"
+                question="What's your budget?"
                 useTextInput={true}
                 options={['BUDGET-FRIENDLY', 'MODERATE', 'LUXURY']}
                 onSelect={(answer) => handleAnswerSelection('budget', answer)}
               />
               <Question
                 question="Who are you planning to go with?"
-                useTextInput={true}
+             
                 options={[
-                  'ALONE',
+					'ALONE',
+					'WITH A FRIEND',
                   'WITH A PARTNER',
                   'WITH FRIENDS',
                   'WITH FAMILY',
