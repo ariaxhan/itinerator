@@ -17,9 +17,9 @@ const firebaseConfig = {
 
 const Results = () => {
   const { quizId } = useParams();
-  const [db, setDb] = useState(null);
+  const [setDb] = useState(null);
   const [response, setResponse] = useState(null);
-  const [status, setStatus] = useState(null);
+  const [ setStatus] = useState(null);
 
   useEffect(() => {
     const app = initializeApp(firebaseConfig);
