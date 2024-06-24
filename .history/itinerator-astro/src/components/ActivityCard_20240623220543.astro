@@ -1,0 +1,17 @@
+import React from 'react';
+
+interface ActivityCardProps {
+  title: string;
+  description: string;
+  href: string;
+}
+
+const ActivityCard: React.FC<ActivityCardProps> = ({ title, description, href }) => (
+  <li className="activity-card">
+    <h3>{title}</h3>
+    <p>{description}</p>
+    <a href={href} className="button">Go</a>
+  </li>
+);
+
+export default ActivityCard;
