@@ -21,7 +21,7 @@ const RouterComponent = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/regex" element={<RegexMatcher />} />
+        <Route path="/regex" element={<Regex />} />
       </Routes>
     </Router>
   );

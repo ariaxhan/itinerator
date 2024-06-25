@@ -8,7 +8,6 @@ import Surprise from './pages/Surprise';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Profile from './pages/Profile';
-import RegexMatcher from './components/RegexMatcher';
 
 const RouterComponent = () => {
   return (
@@ -21,7 +20,7 @@ const RouterComponent = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/regex" element={<RegexMatcher />} />
+        <Route 
       </Routes>
     </Router>
   );

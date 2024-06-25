@@ -19,6 +19,15 @@
   overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
+/* Header Styles */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
 
 .title a {
   text-decoration: none; /* Removes underline */
