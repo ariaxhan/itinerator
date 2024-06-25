@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { collection, deleteDoc, getDocs, getFirestore } from 'firebase/firestore';
+import { collection, getDocs, getFirestore } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
@@ -37,22 +37,6 @@ const Profile = () => {
     return () => unsubscribe();
   }, [auth, db]);
 
-  const clearItineraries = async () => {
-    if (user) {
-      try {
-        const itinerariesCollection = collection(db, 'users', user.uid, 'savedItineraries');
-        const querySnapshot = await getDocs(itinerariesCollection);
-
-        const deletePromises = querySnapshot.docs.map((doc) => deleteDoc(doc.ref));
-        await Promise.all(deletePromises);
-
-        setItineraries([]);
-      } catch (error) {
-        console.error("Error clearing itineraries: ", error);
-      }
-    }
-  };
-
   return (
     <div className="container">
       <div className="header">
@@ -63,16 +47,16 @@ const Profile = () => {
           alt="Logo"
         />
         <Link to="/" className="title-link">Itinerator</Link>
-      </div>
-      
+		  </div>
+		   
       <div className="content-wrapper">
+       
         {user ? (
           <div className="profile-content">
-            <div className="profile-details">
-              <div className="profile-header">
-                <h2>Profile</h2>
-              </div>
-              <br />
+					  <div className="profile-details">
+						  <div className="profile-header">
+          <h2>Profile</h2>
+        </div>
               <h3>User Details</h3>
               <p><strong>Email:</strong> {user.email}</p>
               <p><strong>User ID:</strong> {user.uid}</p>
@@ -87,9 +71,6 @@ const Profile = () => {
                   </li>
                 ))}
               </ul>
-              {itineraries.length > 0 && (
-                <button className="button" onClick={clearItineraries}>Clear All Itineraries</button>
-              )}
             </div>
           </div>
         ) : (

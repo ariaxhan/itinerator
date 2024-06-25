@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { collection, deleteDoc, getDocs, getFirestore } from 'firebase/firestore';
+import { collection, getDocs, getFirestore, deleteDoc, doc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link } from 'react-router-dom';
