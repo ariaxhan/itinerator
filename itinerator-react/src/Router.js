@@ -5,6 +5,9 @@ import Home from './pages/Home';
 import Quiz from './pages/Quiz';
 import Results from './pages/Results';
 import Surprise from './pages/Surprise';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import Profile from './pages/Profile';
 
 const RouterComponent = () => {
   return (
@@ -13,7 +16,10 @@ const RouterComponent = () => {
         <Route path="/" element={<Home />} />
         <Route path="/quiz" element={<Quiz />} />
 			  <Route path="/results/:quizId" element={<Results />} />
-			<Route path="/surprise" element={<Surprise />} />
+        <Route path="/surprise" element={<Surprise />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   );

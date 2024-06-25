@@ -1,12 +1,8 @@
-// firebaseConfig.js
-
+// src/firebaseConfig.js
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-// Check for any changes in import paths for getAnalytics and getAuth
-import { getAnalytics } from 'firebase/analytics';
 import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
-// Your Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyB9cb7zySwiYnXgqWnQKgb8L84Q4Y-eYZY",
   authDomain: "itinerator-bf719.firebaseapp.com",
@@ -17,14 +13,11 @@ const firebaseConfig = {
   measurementId: "G-M9TB6E76QY"
 };
 
-// Initialize Firebase app
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Optional: Initialize Firebase analytics
-const analytics = getAnalytics(app);
-
-// Initialize Firestore and Auth services
-const db = getFirestore(app);
+// Export the auth and firestore services
 const auth = getAuth(app);
+const db = getFirestore(app);
 
-export { analytics, app, auth, db };
+export { auth, db };

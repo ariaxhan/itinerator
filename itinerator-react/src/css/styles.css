@@ -194,3 +194,28 @@
 .question {
   margin-bottom: 40px;
 }
+/* Auth Buttons Styles */
+.auth-buttons {
+  display: flex;
+  gap: 10px; /* Increased gap between buttons */
+  position: absolute;
+  right: 30px;
+  top: 20px;
+}
+
+.auth-buttons .button {
+  color: #fff;
+  background-color: #70999a;
+  padding: 10px 20px; /* Increased padding for larger buttons */
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 700; /* Set font weight */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 5px; /* Added margin for additional spacing */
+}
+
+.auth-buttons .button:hover {
+  background-color: #b8d1d2;
+  color: #333;
+  transform: translateY(-2px);
+}
