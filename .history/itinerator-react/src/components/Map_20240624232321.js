@@ -9,16 +9,15 @@ const Map = ({ locations }) => {
         const map = new window.google.maps.Map(mapRef.current, {
           zoom: locations.length > 0 ? 10 : 2,
           center: locations.length > 0 
-            ? { lat: parseFloat(locations[0].latitude), lng: parseFloat(locations[0].longitude) }
+            ? { lat: locations[0].lat, lng: locations[0].lng }
             : { lat: 0, lng: 0 },
         });
 
         locations.forEach(location => {
           new window.google.maps.Marker({
-            position: { lat: parseFloat(location.latitude), lng: parseFloat(location.longitude) },
+            position: { lat: location.lat, lng: location.lng },
             map: map,
-            title: location.title,
-            label: location.title,
+            title: location.name,
           });
         });
       }

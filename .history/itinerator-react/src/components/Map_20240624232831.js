@@ -18,11 +18,10 @@ const Map = ({ locations }) => {
             position: { lat: parseFloat(location.latitude), lng: parseFloat(location.longitude) },
             map: map,
             title: location.title,
-            label: location.title,
           });
         });
       }
-    };
+    };   
 
     if (window.google && window.google.maps) {
       loadMap();

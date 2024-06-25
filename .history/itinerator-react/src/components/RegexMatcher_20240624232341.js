@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Map from './Map';
 
 const extractCoverPhoto = (text) => {
   console.log("Extracting cover photo...");
@@ -25,8 +24,8 @@ const extractLocationList = (text) => {
     console.log("Location match:", locationMatch);
     locations.push({
       title: locationMatch[1],
-      longitude: parseFloat(locationMatch[2]),
-      latitude: parseFloat(locationMatch[3]),
+      longitude: locationMatch[2],
+      latitude: locationMatch[3],
     });
   }
 
@@ -78,7 +77,6 @@ const RegexMatcher = () => {
         ) : (
           <p>No locations found</p>
         )}
-        <Map locations={locations} />
       </div>
     </div>
   );
