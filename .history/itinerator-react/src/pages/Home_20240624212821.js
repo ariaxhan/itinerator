@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../css/styles.css';
 
 function Home() {
+  useEffect(() => {
+    // This will ensure that adsbygoogle script is properly loaded
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+  }, []);
 
   return (
     <div className="container">
