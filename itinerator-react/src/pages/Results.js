@@ -1,34 +1,30 @@
-import { initializeApp } from 'firebase/app';
-import { doc, getFirestore, onSnapshot } from 'firebase/firestore';
+import { addDoc, collection, doc, onSnapshot } from 'firebase/firestore';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import React, { useEffect, useRef, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Link, useParams } from 'react-router-dom';
+import { auth, db } from '../FirebaseConfig';
 import '../css/results.css';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyB9cb7zySwiYnXgqWnQKgb8L84Q4Y-eYZY",
-  authDomain: "itinerator-bf719.firebaseapp.com",
-  projectId: "itinerator-bf719",
-  storageBucket: "itinerator-bf719.appspot.com",
-  messagingSenderId: "1086600294636",
-  appId: "1:1086600294636:web:75ff5886022f30a853f5c9",
-  measurementId: "G-M9TB6E76QY"
-};
 
 const Results = () => {
   const { quizId } = useParams();
   const [response, setResponse] = useState(null);
   const contentRef = useRef(null);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const app = initializeApp(firebaseConfig);
-    const firestore = getFirestore(app);
+    const unsubscribeAuth = auth.onAuthStateChanged((user) => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    });
 
     if (quizId) {
-      const docRef = doc(firestore, 'quizResponses', quizId);
-      const unsubscribe = onSnapshot(docRef, (docSnap) => {
+      const docRef = doc(db, 'quizResponses', quizId);
+      const unsubscribeDoc = onSnapshot(docRef, (docSnap) => {
         if (docSnap.exists()) {
           const data = docSnap.data();
           if (data.itinerary) {
@@ -40,7 +36,8 @@ const Results = () => {
       });
 
       return () => {
-        unsubscribe();
+        unsubscribeDoc();
+        unsubscribeAuth();
       };
     }
   }, [quizId]);
@@ -60,8 +57,25 @@ const Results = () => {
   const getShareableLink = () => {
     return `${window.location.origin}/itinerary/${quizId}`;
   };
-	
 
+  const saveToProfile = async () => {
+    if (!user) {
+      alert("You must be logged in to save the itinerary to your profile.");
+      return;
+    }
+
+    try {
+      await addDoc(collection(db, 'users', user.uid, 'savedItineraries'), {
+        quizId,
+        itinerary: response,
+        savedAt: new Date()
+      });
+      alert("Itinerary saved to your profile successfully!");
+    } catch (error) {
+      console.error("Error saving itinerary: ", error);
+      alert("Failed to save itinerary. Please try again.");
+    }
+  };
 
   return (
     <div className="container" ref={contentRef}>
@@ -79,13 +93,14 @@ const Results = () => {
           <div className="results-container">
             <div className="results-header">
               <h1>Generated Itinerary</h1>
-          
+            </div>
             {response ? (
               <div className="itinerary">
                 <ReactMarkdown>{response}</ReactMarkdown>
                 <div className="actions">
                   <button className="button" onClick={saveAsPDF}>Save as PDF</button>
                   <button className="button" onClick={() => navigator.clipboard.writeText(getShareableLink())}>Copy Shareable Link</button>
+                  <button className="button" onClick={saveToProfile}>Save to Profile</button>
                 </div>
               </div>
             ) : (
@@ -94,8 +109,7 @@ const Results = () => {
                 <div>Loading itinerary...</div>
               </div>
             )}
-            </div>
-              </div>
+          </div>
         </div>
       </div>
     </div>
