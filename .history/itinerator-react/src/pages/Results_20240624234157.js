@@ -7,7 +7,7 @@ import { Link, useParams } from 'react-router-dom';
 import { auth, db } from '../FirebaseConfig';
 import '../css/results.css';
 import Map from '../components/Map';
-import RegexMatcher from '../components/RegexMatcher';
+import RegexMatcher from './RegexMatcher';
 
 const Results = () => {
   const { quizId } = useParams();

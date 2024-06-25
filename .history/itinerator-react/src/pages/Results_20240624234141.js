@@ -6,8 +6,8 @@ import ReactMarkdown from 'react-markdown';
 import { Link, useParams } from 'react-router-dom';
 import { auth, db } from '../FirebaseConfig';
 import '../css/results.css';
-import Map from '../components/Map';
-import RegexMatcher from '../components/RegexMatcher';
+import Map from './Map';
+import RegexMatcher from './RegexMatcher';
 
 const Results = () => {
   const { quizId } = useParams();

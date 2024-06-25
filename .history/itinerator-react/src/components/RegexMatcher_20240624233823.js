@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import Map from './Map';
 
 const extractCoverPhoto = (text) => {
   console.log("Extracting cover photo...");
-  const coverPhotoRegex = /\*\*Cover Photo:\*\*\s*(.+?)(?=\*\*|$)/ms;
+  const coverPhotoRegex = /\*\*Cover Photo:\*\*\s*(.+?)(?=\*\*|$)/m;
   const match = text.match(coverPhotoRegex);
   console.log("Cover photo match:", match);
   return match ? match[1].trim() : null;
@@ -11,16 +10,22 @@ const extractCoverPhoto = (text) => {
 
 const extractLocationList = (text) => {
   console.log("Extracting location list...");
-  const locationRegex = /\*\s*([A-Za-z\s,']+):\s*([-\d.]+),\s*([-\d.]+)/g;
-  const locations = [];
-  let match;
+  const locationListRegex = /\*\*\s*(?:Location|Map|Coordinates)\s*(?:List)?\s*(?:\(Longitude, Latitude\))?\s*:\*\*((?:\s*\*.+?)*)/m;
+  const match = text.match(locationListRegex);
+  console.log("Location list match:", match);
+  if (!match) return null;
 
-  while ((match = locationRegex.exec(text)) !== null) {
-    console.log("Location match:", match);
+  const locationsText = match[1];
+  const locationRegex = /\*\s*(.+?):\s*([-\d.]+),\s*([-\d.]+)/g;
+  const locations = [];
+  let locationMatch;
+
+  while ((locationMatch = locationRegex.exec(locationsText)) !== null) {
+    console.log("Location match:", locationMatch);
     locations.push({
-      title: match[1].trim(),
-      longitude: parseFloat(match[2]),
-      latitude: parseFloat(match[3]),
+      title: locationMatch[1].trim(),
+      longitude: parseFloat(locationMatch[2]),
+      latitude: parseFloat(locationMatch[3]),
     });
   }
 

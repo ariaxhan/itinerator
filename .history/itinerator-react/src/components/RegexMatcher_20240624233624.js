@@ -1,26 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Map from './Map';
 
 const extractCoverPhoto = (text) => {
   console.log("Extracting cover photo...");
-  const coverPhotoRegex = /\*\*Cover Photo:\*\*\s*(.+?)(?=\*\*|$)/ms;
+  const coverPhotoRegex = /\*\*Cover Photo:\*\*\s*(.+?)\s*\*\*Location List/m;
   const match = text.match(coverPhotoRegex);
   console.log("Cover photo match:", match);
-  return match ? match[1].trim() : null;
+  return match ? match[1] : null;
 };
 
 const extractLocationList = (text) => {
   console.log("Extracting location list...");
-  const locationRegex = /\*\s*([A-Za-z\s,']+):\s*([-\d.]+),\s*([-\d.]+)/g;
-  const locations = [];
-  let match;
+  const locationListRegex = /\*\*Location List \(Longitude, Latitude\):\*\*((?:\s*\*.+)*)/m;
+  const match = text.match(locationListRegex);
+  console.log("Location list match:", match);
+  if (!match) return null;
 
-  while ((match = locationRegex.exec(text)) !== null) {
-    console.log("Location match:", match);
+  const locationsText = match[1];
+  const locationRegex = /\*\s*(.+?):\s*([-\d.]+),\s*([-\d.]+)/g;
+  const locations = [];
+  let locationMatch;
+
+  while ((locationMatch = locationRegex.exec(locationsText)) !== null) {
+    console.log("Location match:", locationMatch);
     locations.push({
-      title: match[1].trim(),
-      longitude: parseFloat(match[2]),
-      latitude: parseFloat(match[3]),
+      title: locationMatch[1],
+      longitude: parseFloat(locationMatch[2]),
+      latitude: parseFloat(locationMatch[3]),
     });
   }
 
@@ -28,44 +34,33 @@ const extractLocationList = (text) => {
   return locations;
 };
 
-const RegexMatcher = ({ text, onExtract }) => {
-  const [inputText, setInputText] = useState('');
+const RegexMatcher = () => {
+  const [text, setText] = useState('');
   const [coverPhoto, setCoverPhoto] = useState(null);
   const [locations, setLocations] = useState([]);
 
-  const handleExtract = (extractText) => {
+  const handleExtract = () => {
     console.log("Handling extract...");
-    const extractedCoverPhoto = extractCoverPhoto(extractText);
-    const extractedLocations = extractLocationList(extractText);
+    const extractedCoverPhoto = extractCoverPhoto(text);
+    const extractedLocations = extractLocationList(text);
     console.log("Extracted cover photo:", extractedCoverPhoto);
     console.log("Extracted locations:", extractedLocations);
     setCoverPhoto(extractedCoverPhoto);
     setLocations(extractedLocations || []);
-    if (onExtract) onExtract(extractedLocations || []);
   };
-
-  useEffect(() => {
-    if (text) {
-      handleExtract(text);
-    }
-  }, [text]);
 
   return (
     <div>
       <h1>Regex Matcher</h1>
-      {!text && (
-        <>
-          <textarea
-            rows="10"
-            cols="80"
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-            placeholder="Paste your text here..."
-          />
-          <br />
-          <button onClick={() => handleExtract(inputText)}>Extract</button>
-        </>
-      )}
+      <textarea
+        rows="10"
+        cols="80"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Paste your text here..."
+      />
+      <br />
+      <button onClick={handleExtract}>Extract</button>
       <div>
         <h2>Cover Photo</h2>
         <p>{coverPhoto || 'No Cover Photo found'}</p>
@@ -83,6 +78,7 @@ const RegexMatcher = ({ text, onExtract }) => {
         ) : (
           <p>No locations found</p>
         )}
+        <Map locations={locations} />
       </div>
     </div>
   );
