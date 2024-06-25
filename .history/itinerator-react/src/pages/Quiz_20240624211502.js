@@ -27,8 +27,8 @@ function preprocessInput(data) {
     transportation: data.transportation || 'any mode of transportation',
     visitedBefore: data.visitedBefore || 'unknown',
     weather: data.weather || 'any weather',
-    startingAddress: data.startingAddress || 'pick a random place in the city',
-    destinationAddress: data.destinationAddress || 'pick another random place in the city',
+    startingAddress: data.startingAddress || '',
+    destinationAddress: data.destinationAddress || '',
     packingList: data.packingList || 'No'
   };
 }

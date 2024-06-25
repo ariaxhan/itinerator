@@ -36,6 +36,7 @@
   max-width: 100%; /* Ensure buttons don't exceed container width */
   box-sizing: border-box; /* Include padding and border in the element's total width and height */
   border: none;
+  text-weight: 
   white-space: nowrap; /* Prevent text from wrapping */
 }
 

@@ -28,7 +28,7 @@ function preprocessInput(data) {
     visitedBefore: data.visitedBefore || 'unknown',
     weather: data.weather || 'any weather',
     startingAddress: data.startingAddress || 'pick a random place in the city',
-    destinationAddress: data.destinationAddress || 'pick another random place in the city',
+    destinationAddress: data.destinationAddress || 'pick',
     packingList: data.packingList || 'No'
   };
 }

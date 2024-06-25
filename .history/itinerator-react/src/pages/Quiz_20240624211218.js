@@ -3,7 +3,6 @@ import { addDoc, collection, getFirestore } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Question from '../components/Question';
-import '../css/quiz.css';
 
 const firebaseConfig = {
   apiKey: "AIzaSyB9cb7zySwiYnXgqWnQKgb8L84Q4Y-eYZY",
@@ -27,8 +26,8 @@ function preprocessInput(data) {
     transportation: data.transportation || 'any mode of transportation',
     visitedBefore: data.visitedBefore || 'unknown',
     weather: data.weather || 'any weather',
-    startingAddress: data.startingAddress || 'pick a random place in the city',
-    destinationAddress: data.destinationAddress || 'pick another random place in the city',
+    startingAddress: data.startingAddress || '',
+    destinationAddress: data.destinationAddress || '',
     packingList: data.packingList || 'No'
   };
 }
@@ -205,6 +204,7 @@ const Quiz = () => {
                   'DIETARY RESTRICTIONS',
                   'PET-FRIENDLY'
                 ]}
+                
                 onSelect={(answer) =>
                   handleAnswerSelection('requirements', [
                     ...answers.requirements.split(', '),
@@ -212,13 +212,13 @@ const Quiz = () => {
                   ])
                 }
               />
-              <button className="submit-button" onClick={() => setShowAdvanced(!showAdvanced)}>
+              <div className="advanced-options-toggle" onClick={() => setShowAdvanced(!showAdvanced)}>
                 {showAdvanced ? 'Hide Advanced Options' : 'Show Advanced Options'}
-              </button>
+              </div>
               {showAdvanced && (
                 <div className="advanced-options">
                   <Question
-                    question="Starting address:"
+                    question="Starting location (address):"
                     useTextInput={true}
                     onSelect={(answer) => handleAnswerSelection('startingAddress', answer)}
                   />
