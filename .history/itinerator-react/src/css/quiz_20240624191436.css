@@ -1,20 +1,16 @@
 .question {
   margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
   align-items: center; /* Center align the questions */
 }
 
 .question-text {
   font-size: 18px;
   margin-bottom: 10px;
-  text-align: center; /* Center the question text */
 }
 
 .options {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Center the options horizontally */
   gap: 10px; /* Space between buttons */
 }
 
@@ -32,10 +28,8 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-align: center;
-  width: auto; /* Allow the width to adjust based on content */
-  max-width: 100%; /* Ensure buttons don't exceed container width */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
-  white-space: nowrap; /* Prevent text from wrapping */
+  width: 100%; /* Make buttons full-width */
+  max-width: 300px; /* Optional: Set a max-width for better appearance */
 }
 
 .button:hover {

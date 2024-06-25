@@ -33,6 +33,8 @@ const Results = () => {
           const data = docSnap.data();
           if (data.itinerary) {
             setResponse(data.itinerary);
+            const extractedLocations = extractLocations(data.itinerary);
+            setLocations(extractedLocations);
           }
         } else {
           console.log("No such document!");
@@ -61,8 +63,56 @@ const Results = () => {
     return `${window.location.origin}/itinerary/${quizId}`;
   };
 	
+	const extractLocations = (itinerary) => {
+
+    // Step 1: Identify the Locations List Section
+  const listSectionRegex = /\*\*Locations List:\*\*\s*([\s\S]*)/g;
+		const listSectionMatch = listSectionRegex.exec(itinerary);
+		console.log("locations list" + listSectionMatch);
+  if (!listSectionMatch) {
+	  console.log("No locations list found.");
+	  
+    return [];
+  }
+
+  const listSection = listSectionMatch[1];
 
 
+  // Step 2: Extract Each Location
+   const locationTitleRegex = /\*\*\s*([^*]+?)\s*\*\*:/g;
+  const longitudeRegex = /Longitude:\s*(-?\d+\.\d+)/g;
+  const latitudeRegex = /Latitude:\s*(-?\d+\.\d+)/g;
+
+  const titles = [];
+  const longitudes = [];
+  const latitudes = [];
+
+  let match;
+  while ((match = locationTitleRegex.exec(listSection)) !== null) {
+    console.log("Title Match:", match[1].trim());
+    titles.push(match[1].trim());
+  }
+
+  while ((match = longitudeRegex.exec(listSection)) !== null) {
+    console.log("Longitude Match:", match[1]);
+    longitudes.push(parseFloat(match[1]));
+  }
+
+		while ((match = latitudeRegex.exec(listSection)) !== null) {
+			console.log("Latitude Match:", match[1]);
+			latitudes.push(parseFloat(match[1]));
+		}
+
+ const locations = titles.map((title, index) => ({
+    name: title,
+    lng: longitudes[index],
+    lat: latitudes[index],
+  }));
+
+  console.log("Extracted Locations:");
+  console.log(locations); // Print out the extracted locations
+  return locations;
+};
   return (
     <div className="container" ref={contentRef}>
       <div className="content-wrapper">

@@ -32,10 +32,8 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   text-align: center;
-  width: auto; /* Allow the width to adjust based on content */
-  max-width: 100%; /* Ensure buttons don't exceed container width */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
-  white-space: nowrap; /* Prevent text from wrapping */
+  width: 100%; /* Make buttons full-width */
+  max-width: 300px; /* Optional: Set a max-width for better appearance */
 }
 
 .button:hover {
