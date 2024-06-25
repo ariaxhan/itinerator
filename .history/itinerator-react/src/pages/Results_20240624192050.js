@@ -94,8 +94,7 @@ const Results = () => {
                 <div>Loading itinerary...</div>
               </div>
             )}
-            </div>
-              </div>
+          </div>
         </div>
       </div>
     </div>
