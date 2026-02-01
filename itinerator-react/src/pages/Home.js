@@ -64,6 +64,16 @@ function Home() {
             <a href="/quiz" className="button">TAKE THE QUIZ</a>
             <a href="/surprise" className="button">SURPRISE ME</a>
           </div>
+          <div className="donate-section">
+            <a
+              href="https://ko-fi.com/ariaxhan"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="donate-button"
+            >
+              Support this project on Ko-fi
+            </a>
+          </div>
         </div>
       </div>
     </div>
